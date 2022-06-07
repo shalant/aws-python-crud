@@ -56,14 +56,14 @@ def getProduct(productId):
 def getProducts():
     try:
         response = table.scan()
-        result = resonse['Item']
+        result = response['Items']
 
         while 'LastEvaluatedKey' in response:
             response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
-            result.extend(response['Item'])
+            result.extend(response['Items'])
 
         body = {
-            'products': repsonse
+            'products': result
         }
         return buildResponse(200, body)
     except:
